@@ -27,7 +27,7 @@ public class RequestRepeater {
                 write_responseString(headers, htmlBody);
             }
             case TCP -> // TODO
-                    System.out.println("TOBE CONTINUED...");
+                    System.out.println("TO BE CONTINUED...");
             case TCP_UTF8 -> write_responseString(catch_requestString());
         }
     }
@@ -35,7 +35,10 @@ public class RequestRepeater {
     public String catch_requestString() {
         String requestString = "";
         try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
+            BufferedReader bufferedReader =
+                    new BufferedReader(
+                            new InputStreamReader(
+                                    socket.getInputStream(), StandardCharsets.UTF_8));
             StringBuilder stringBuilder = new StringBuilder();
             while (true) {
                 String line = bufferedReader.readLine();
@@ -52,7 +55,10 @@ public class RequestRepeater {
     }
 
     private void write_responseString(String body) {
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8))) {
+        try (BufferedWriter bufferedWriter =
+                     new BufferedWriter(
+                             new OutputStreamWriter(
+                                     socket.getOutputStream(), StandardCharsets.UTF_8))) {
             bufferedWriter.write(body);
             bufferedWriter.flush();
         } catch (IOException e) {
@@ -61,7 +67,10 @@ public class RequestRepeater {
     }
 
     private void write_responseString(String[] headers, String htmlBody) {
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8))) {
+        try (BufferedWriter bufferedWriter =
+                     new BufferedWriter(
+                             new OutputStreamWriter(
+                                     socket.getOutputStream(), StandardCharsets.UTF_8))) {
             for (String header : headers) {
                 bufferedWriter.write(header);
                 bufferedWriter.newLine();
